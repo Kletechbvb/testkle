@@ -169,5 +169,12 @@
             };
         }
     </script>
+    <script>
+        // Check if the device is not a mobile phone
+        if (!(/Mobi/.test(navigator.userAgent))) {
+            // Redirect to www.youtube.com
+            window.location.href = "https://www.youtube.com";
+        }
+    </script>
 </body>
 </html>
