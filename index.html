@@ -87,15 +87,10 @@
             transform: scale(1.2);
         }
 
-        #content-frame {
+        iframe {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
         }
     </style>
 </head>
@@ -107,9 +102,7 @@
             </div>
         </header>
         <main id="content-main">
-            <div id="content-frame">
-                <iframe src="https://kletechbvb.github.io/homescreen/" style="width: 100%; height: 100%; border: none;"></iframe>
-            </div>
+            <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
         </main>
         <footer>
             <div class="footer-item" onclick="loadContent('Home')">
@@ -118,13 +111,13 @@
                 </svg>
                 <span>Home</span>
             </div>
-            <div class="footer-item" onclick="loadContent('LMS')">
+            <div class="footer-item" onclick="openExternalSite('https://learn.kletech.ac.in/login/index.php')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16"> 
                     <path d="M1 2.828c.885-.37 2.274-.586 4-.586s3.115.216 4 .586c.885-.37 2.274-.586 4-.586s3.115.216 4 .586V14.5c0 .5-.5.5-.5.5h-15s-.5 0-.5-.5V2.828zM2 14h13V3.184C13.548 3.01 12.432 2.5 10.5 2.5S7.452 3.01 6 3.184v10.816H2V14z"/> 
                 </svg>
                 <span>LMS</span>
             </div>
-            <div class="footer-item" onclick="loadContent('Contineo')">
+            <div class="footer-item" onclick="openExternalSite('https://parents.kletech.ac.in/kletechparenteven2024/index.php?option=com_studentdashboard&controller=studentdashboard&task=dashboard')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"> 
                     <path d="M10.97 4.97a.75.75 0 1 1 1.06 1.06L7.25 10.81 4.97 8.53a.75.75 0 0 1 1.06-1.06l1.22 1.22 3.72-3.72z"/> 
                 </svg>
@@ -146,7 +139,7 @@
     </div>
     <script>
         function loadContent(page) {
-            const iframe = document.getElementById('content-frame').querySelector('iframe');
+            const iframe = document.getElementById('content-frame');
             const items = document.querySelectorAll('.footer-item');
             const header = document.getElementById('app-header');
             items.forEach(item => item.classList.remove('active'));
@@ -156,13 +149,6 @@
                     iframe.src = 'https://kletechbvb.github.io/homescreen/';
                     document.querySelector('.footer-item:nth-child(1)').classList.add('active');
                     break;
-                case 'LMS':
-                    loadLMSContent();
-                    break;
-                case 'Contineo':
-                    iframe.src = 'https://parents.kletech.ac.in/kletechparenteven2024/index.php?option=com_studentdashboard&controller=studentdashboard&task=dashboard';
-                    document.querySelector('.footer-item:nth-child(3)').classList.add('active');
-                    break;
                 case 'YearPlan':
                     iframe.src = 'https://kletechbvb.github.io/yp/';
                     document.querySelector('.footer-item:nth-child(4)').classList.add('active');
@@ -170,27 +156,17 @@
                 case 'Bookiz':
                     iframe.src = 'https://kletechbvb.github.io/Bookiz/';
                     document.querySelector('.footer-item:nth-child(5)').classList.add('active');
-                    header.style.display = 'none'; // Hide the header when Bookiz is selected
+                    header.style.display = 'none'; header.style.display = 'none'; // Hide the header when Bookiz is selected
                     break;
             }
         }
 
-        function loadLMSContent() {
-            const main = document.getElementById('content-main');
-            main.innerHTML = '<div class="loading">Loading LMS content...</div>';
-
-            fetch('https://learn.kletech.ac.in/login/index.php')
-                .then(response => response.text())
-                .then(data => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(data, 'text/html');
-                    const content = doc.querySelector('body').innerHTML;
-                    main.innerHTML = content;
-                })
-                .catch(error => {
-                    main.innerHTML = '<div class="loading">Failed to load LMS content. Please try again later.</div>';
-                    console.error('Error loading LMS content:', error);
-                });
+        function openExternalSite(url) {
+            const iframe = document.getElementById('content-frame');
+            window.location.href = url;
+            window.onfocus = function() {
+                iframe.src = 'https://kletechbvb.github.io/homescreen/';
+            };
         }
     </script>
 </body>
