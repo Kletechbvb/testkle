@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Screen</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Dark background for the app */
+            color: #ffffff; /* White text color */
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #1E1E1E; /* Slightly lighter dark for the header */
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        main {
+            flex: 1;
+            overflow-y: auto;
+            background-color: #121212; /* Ensure consistent background */
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-around;
+            background-color: #1E1E1E; /* Consistent with header color */
+            padding: 10px 0;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-item {
+            text-align: center;
+            flex: 1;
+            color: #B0B0B0; /* Grey color for footer items */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .footer-item svg {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-item:hover svg {
+            transform: scale(1.2);
+        }
+
+        .footer-item:hover {
+            color: #ffffff; /* Change to white on hover */
+        }
+
+        .footer-item.active {
+            color: #ffffff; /* Active item color */
+        }
+
+        .footer-item.active svg {
+            transform: scale(1.2);
+        }
+
+        #content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header id="app-header">
+            <div class="header-left">
+                <div class="logo">Kle.tech</div>
+            </div>
+        </header>
+        <main id="content-main">
+            <div id="content-frame">
+                <iframe src="https://kletechbvb.github.io/homescreen/" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-item active" onclick="loadContent('Home')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"> 
+                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 2 7.5V14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7.5a.5.5 0 0 0-.146-.354l-6-6zM13 13h-2v-3a1 1 0 1 0-2 0v3H5v-5.5l3-3 3 3V13z"/>
+                </svg>
+                <span>Home</span>
+            </div>
+            <div class="footer-item" onclick="loadLMSContent()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16"> 
+                    <path d="M1 2.828c.885-.37 2.274-.586 4-.586s3.115.216 4 .586c.885-.37 2.274-.586 4-.586s3.115.216 4 .586V14.5c0 .5-.5.5-.5.5h-15s-.5 0-.5-.5V2.828zM2 14h13V3.184C13.548 3.01 12.432 2.5 10.5 2.5S7.452 3.01 6 3.184v10.816H2V14z"/> 
+                </svg>
+                <span>LMS</span>
+            </div>
+            <div class="footer-item" onclick="loadContent('Contineo')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16"> 
+                    <path d="M10.97 4.97a.75.75 0 1 1 1.06 1.06L7.25 10.81 4.97 8.53a.75.75 0 0 1 1.06-1.06l1.22 1.22 3.72-3.72z"/> 
+                </svg>
+                <span>Contineo</span>
+            </div>
+            <div class="footer-item" onclick="loadContent('YearPlan')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16"> 
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/> 
+                </svg>
+                <span>Year Plan</span>
+            </div>
+            <div class="footer-item" onclick="loadContent('Bookiz')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.33-.315.158-.888-.283-.95l-4.898-.696L8.465.792c-.197-.39-.73-.39-.927 0L5.354 5.119l-4.898.696c-.441.062-.612.635-.282.95l3.523 3.356-.83 4.73zm4.905-2.767L8 10.577l-.771.506 1.54-.786zm0 0L8 10.577l-.771.506 1.54-.786z"/>
+                </svg>
+                <span>Bookiz</span>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function loadContent(page) {
+            const iframe = document.getElementById('content-frame').querySelector('iframe');
+            const items = document.querySelectorAll('.footer-item');
+            const header = document.getElementById('app-header');
+            items.forEach(item => item.classList.remove('active'));
+            header.style.display = 'flex'; // Ensure header is visible by default
+            switch(page) {
+                case 'Home':
+                    iframe.src = 'https://kletechbvb.github.io/homescreen/';
+                    document.querySelector('.footer-item:nth-child(1)').classList.add('active');
+                    break;
+                case 'Contineo':
+                    iframe.src = 'https://parents.kletech.ac.in/kletechparenteven2024/index.php?option=com_studentdashboard&controller=studentdashboard&task=dashboard';
+                    document.querySelector('.footer-item:nth-child(3)').classList.add('active');
+                    break;
+                case 'YearPlan':
+                    iframe.src = 'https://yearplan.example.com';
+                    document.querySelector('.footer-item:nth-child(4)').classList.add('active');
+                    break;
+                case 'Bookiz':
+                    iframe.src = 'https://bookiz.example.com';
+                    document.querySelector('.footer-item:nth-child(5)').classList.add('active');
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function loadLMSContent() {
+            const items = document.querySelectorAll('.footer-item');
+            items.forEach(item => item.classList.remove('active'));
+            document.querySelector('.footer-item:nth-child(2)').classList.add('active');
+
+            const main = document.getElementById('content-main');
+            main.innerHTML = '<div class="loading">Loading LMS content...</div>';
+
+            fetch('https://learn.kletech.ac.in/login/index.php')
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const content = doc.querySelector('body').innerHTML;
+                    main.innerHTML = content;
+                })
+                .catch(error => {
+                    main.innerHTML = '<div class="loading">Failed to load LMS content. Please try again later.</div>';
+                    console.error('Error loading LMS content:', error);
+                });
+        }
+    </script>
+</body>
+</html>
