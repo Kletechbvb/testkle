@@ -12,6 +12,15 @@
             background-color: #121212; /* Dark background for the app */
             color: #ffffff; /* White text color */
         }
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.tasks-icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
 
         .app-container {
             display: flex;
@@ -96,11 +105,19 @@
 </head>
 <body>
     <div class="app-container">
-        <header id="app-header">
-            <div class="header-left">
-                <div class="logo">Kle.tech</div>
-            </div>
-        </header>
+       <header id="app-header">
+    <div class="header-left">
+        <div class="logo">Kle.tech</div>
+    </div>
+    <div class="header-right">
+        <div class="tasks-icon" onclick="loadTasks()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
+            </svg>
+        </div>
+    </div>
+</header>
+
         <main id="content-main">
             <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
         </main>
@@ -168,6 +185,15 @@
                 iframe.src = 'https://kletechbvb.github.io/homescreen/';
             };
         }
+
+        function loadTasks() {
+    const iframe = document.getElementById('content-frame');
+    const header = document.getElementById('app-header');
+    iframe.src = 'https://kletechbvb.github.io/todolist/';
+    header.style.display = 'flex'; // Ensure header is visible
+    document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active')); // Remove active class from footer items
+}
+
     </script>
     <script>
         // Check if the device is not a mobile phone
