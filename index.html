@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Screen</title>
+    <title>KLE.Tech</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="kletech.jpg"
+    <meta name="theme-color" content="#1E1E1E">
     <style>
-        body, html {
+ body, html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
@@ -101,22 +104,23 @@
             height: 100%;
             border: none;
         }
+
     </style>
 </head>
 <body>
     <div class="app-container">
-       <header id="app-header">
-    <div class="header-left">
-        <div class="logo">Kle.tech</div>
-    </div>
-    <div class="header-right">
-        <div class="tasks-icon" onclick="loadTasks()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
-            </svg>
-        </div>
-    </div>
-</header>
+        <header id="app-header">
+            <div class="header-left">
+                <div class="logo">Kle.tech</div>
+            </div>
+            <div class="header-right">
+                <div class="tasks-icon" onclick="loadTasks()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
+                    </svg>
+                </div>
+            </div>
+        </header>
 
         <main id="content-main">
             <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
@@ -160,7 +164,7 @@
             const items = document.querySelectorAll('.footer-item');
             const header = document.getElementById('app-header');
             items.forEach(item => item.classList.remove('active'));
-            header.style.display = 'flex'; // Ensure header is visible by default
+            header.style.display = 'flex';
             switch(page) {
                 case 'Home':
                     iframe.src = 'https://kletechbvb.github.io/homescreen/';
@@ -173,7 +177,7 @@
                 case 'Bookiz':
                     iframe.src = 'https://kletechbvb.github.io/Bookiz/';
                     document.querySelector('.footer-item:nth-child(5)').classList.add('active');
-                    header.style.display = 'none'; header.style.display = 'none'; // Hide the header when Bookiz is selected
+                    header.style.display = 'none';
                     break;
             }
         }
@@ -187,19 +191,26 @@
         }
 
         function loadTasks() {
-    const iframe = document.getElementById('content-frame');
-    const header = document.getElementById('app-header');
-    iframe.src = 'https://kletechbvb.github.io/todolist/';
-    header.style.display = 'flex'; // Ensure header is visible
-    document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active')); // Remove active class from footer items
-}
-
+            const iframe = document.getElementById('content-frame');
+            const header = document.getElementById('app-header');
+            iframe.src = 'https://kletechbvb.github.io/todolist/';
+            header.style.display = 'flex';
+            document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active'));
+        }
     </script>
     <script>
-        // Check if the device is not a mobile phone
         if (!(/Mobi/.test(navigator.userAgent))) {
-            // Redirect to www.youtube.com
             window.location.href = "https://www.youtube.com";
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch((error) => {
+                console.log('Service Worker registration failed:', error);
+            });
         }
     </script>
 </body>
