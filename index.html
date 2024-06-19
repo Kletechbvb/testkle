@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   
     <title>KLE.Tech</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="kletech512.jpg">
@@ -265,6 +266,20 @@
                 });
             }
         };
+    </script>
+ <script>
+        // Disable zooming using keyboard shortcuts and gestures
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '0')) {
+                event.preventDefault();
+            }
+        });
+
+        document.addEventListener('wheel', function(event) {
+            if (event.ctrlKey) {
+                event.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
