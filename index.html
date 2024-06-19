@@ -8,6 +8,24 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="kletech512.jpg">
     <meta name="theme-color" content="#1E1E1E">
+<style>
+        /* Prevent text and image selection */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+        }
+
+        /* Prevent images from being draggable */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+    </style>
     <style>
         body, html {
             margin: 0;
@@ -280,6 +298,24 @@
                 event.preventDefault();
             }
         }, { passive: false });
+    </script>
+<script>
+        // Prevent copying
+        document.addEventListener('copy', function(event) {
+            event.preventDefault();
+        });
+
+        // Prevent context menu (right-click)
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Prevent dragging of images
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
