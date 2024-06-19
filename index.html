@@ -105,6 +105,12 @@
             height: 100%;
             border: none;
         }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +130,7 @@
 
         <main id="content-main">
             <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
+            <div id="error-message" class="error-message" style="display: none;"></div>
         </main>
         <footer>
             <div class="footer-item" onclick="loadContent('Home')">
@@ -152,7 +159,7 @@
             </div>
             <div class="footer-item" onclick="loadContent('Bookiz')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.33-.315.158-.888-.283-.95l-4.898-.696L8.465.792c-.197-.39-.73-.39-.927 0L5.354 5.119l-4.898.696c-.441.062-.612.635-.282.95l3.523 3.356-.83 4.73zm4.905-2.767L8 10.577l-.771.506 1.54-.786zm0 0L8 10.577l-.771.506 1.54-.786z"/>
+         <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.33-.315.158-.888-.283-.95l-4.898-.696L8.465.792c-.197-.39-.73-.39-.927 0L5.354 5.119l-4.898.696c-.441.062-.612.635-.282.95l3.523 3.356-.83 4.73zm4.905-2.767L8 10.577l-.771.506 1.54-.786zm0 0L8 10.577l-.771.506 1.54-.786z"/>
                 </svg>
                 <span>Bookiz</span>
             </div>
@@ -167,49 +174,80 @@
             const iframe = document.getElementById('content-frame');
             const items = document.querySelectorAll('.footer-item');
             const header = document.getElementById('app-header');
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none'; // Hide any previous error message
             items.forEach(item => item.classList.remove('active'));
             header.style.display = 'flex';
 
-            switch(page) {
-                case 'Home':
-                    iframe.src = 'https://kletechbvb.github.io/homescreen/';
-                    document.querySelector('.footer-item:nth-child(1)').classList.add('active');
-                    break;
-                case 'YearPlan':
-                    iframe.src = 'https://kletechbvb.github.io/yp/';
-                    document.querySelector('.footer-item:nth-child(4)').classList.add('active');
-                    break;
-                case 'Bookiz':
-                    iframe.src = 'https://kletechbvb.github.io/Bookiz/';
-                    document.querySelector('.footer-item:nth-child(5)').classList.add('active');
-                    header.style.display = 'none';
-                    break;
-            }
+            try {
+                switch(page) {
+                    case 'Home':
+                        iframe.src = 'https://kletechbvb.github.io/homescreen/';
+                        document.querySelector('.footer-item:nth-child(1)').classList.add('active');
+                        break;
+                    case 'YearPlan':
+                        iframe.src = 'https://kletechbvb.github.io/yp/';
+                        document.querySelector('.footer-item:nth-child(4)').classList.add('active');
+                        break;
+                    case 'Bookiz':
+                        iframe.src = 'https://kletechbvb.github.io/Bookiz/';
+                        document.querySelector('.footer-item:nth-child(5)').classList.add('active');
+                        header.style.display = 'none';
+                        break;
+                }
 
-            iframeHistory.push(iframe.src); // Push new URL to history
+                iframeHistory.push(iframe.src); // Push new URL to history
+            } catch (error) {
+                console.error('Error loading content:', error);
+                errorMessage.textContent = 'Error loading content. Please try again.';
+                errorMessage.style.display = 'block';
+            }
         }
 
         function openExternalSite(url) {
-            const iframe = document.getElementById('content-frame');
-            iframe.src = url;
-            iframeHistory.push(mainSiteUrl); // Push main site URL to history for return
+            try {
+                window.open(url, '_blank'); // Open the URL in a new tab
+            } catch (error) {
+                console.error('Error opening external site:', error);
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Error opening external site. Please try again.';
+                errorMessage.style.display = 'block';
+            }
         }
 
         function loadTasks() {
             const iframe = document.getElementById('content-frame');
             const header = document.getElementById('app-header');
-            iframe.src = 'https://kletechbvb.github.io/todolist/';
-            header.style.display = 'flex';
-            document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active'));
-            iframeHistory.push(iframe.src); // Push new URL to history
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none'; // Hide any previous error message
+
+            try {
+                iframe.src = 'https://kletechbvb.github.io/todolist/';
+                header.style.display = 'flex';
+                document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active'));
+                iframeHistory.push(iframe.src); // Push new URL to history
+            } catch (error) {
+                console.error('Error loading tasks:', error);
+                errorMessage.textContent = 'Error loading tasks. Please try again.';
+                errorMessage.style.display = 'block';
+            }
         }
 
         window.addEventListener('popstate', function(event) {
             const iframe = document.getElementById('content-frame');
-            if (iframeHistory.length > 1) {
-                iframeHistory.pop(); // Remove current URL
-                const previousUrl = iframeHistory[iframeHistory.length - 1];
-                iframe.src = previousUrl; // Load previous URL
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none'; // Hide any previous error message
+
+            try {
+                if (iframeHistory.length > 1) {
+                    iframeHistory.pop(); // Remove current URL
+                    const previousUrl = iframeHistory[iframeHistory.length - 1];
+                    iframe.src = previousUrl; // Load previous URL
+                }
+            } catch (error) {
+                console.error('Error handling back navigation:', error);
+                errorMessage.textContent = 'Error handling back navigation. Please try again.';
+                errorMessage.style.display = 'block';
             }
         });
 
