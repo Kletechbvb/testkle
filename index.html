@@ -24,8 +24,7 @@
             -o-user-drag: none;
             user-drag: none;
         }
-    </style>
-    <style>
+
         body, html {
             margin: 0;
             padding: 0;
@@ -74,17 +73,17 @@
             background-color: #121212;
         }
 
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
 
-.logo img {
-    height: 40px;
-    margin-right: 10px;
-}
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
 
         footer {
             display: flex;
@@ -146,21 +145,20 @@
 <body>
     <div class="app-container">
         <header id="app-header">
-    <div class="header-left">
-        <div class="logo">
-            <img src="kletech192.jpg" alt="KLE.Tech Logo">
-            <span>KLE.Tech</span>
-        </div>
-    </div>
-    <div class="header-right">
-        <div class="tasks-icon" onclick="loadTasks()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
-            </svg>
-        </div>
-    </div>
-</header>
-
+            <div class="header-left">
+                <div class="logo">
+                    <img src="kletech192.jpg" alt="KLE.Tech Logo">
+                    <span>KLE.Tech</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="tasks-icon" onclick="loadTasks()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
+                    </svg>
+                </div>
+            </div>
+        </header>
         <main id="content-main">
             <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
             <div id="error-message" class="error-message" style="display: none;"></div>
@@ -186,153 +184,69 @@
             </div>
             <div class="footer-item" onclick="loadContent('YearPlan')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16"> 
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/> 
+                                       <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9 2H3v2h10V2zm-10 3H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H3z"/> 
                 </svg>
                 <span>Year Plan</span>
             </div>
-            <div class="footer-item" onclick="loadContent('Bookiz')">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.33-.315.158-.888-.283-.95l-4.898-.696L8.465.792c-.197-.39-.73-.39-.927 0L5.354 5.119l-4.898.696c-.441.062-.612.635-.282.95l3.523 3.356-.83 4.73zm4.905-2.767L8 10.577l-.771.506 1.54-.786zm0 0L8 10.577l-.771.506 1.54-.786z"/>
-                </svg>
-                <span>Bookiz</span>
-            </div>
         </footer>
     </div>
+
     <script>
-        // Track iframe URL
-        let iframeHistory = ['https://kletechbvb.github.io/homescreen/'];
-        const mainSiteUrl = 'https://kletechbvb.github.io/testkle/';
-
         function loadContent(page) {
-            const iframe = document.getElementById('content-frame');
-            const items = document.querySelectorAll('.footer-item');
-            const header = document.getElementById('app-header');
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.style.display = 'none'; // Hide any previous error message
-            items.forEach(item => item.classList.remove('active'));
-            header.style.display = 'flex';
-
-            try {
-                switch(page) {
-                    case 'Home':
-                        iframe.src = 'https://kletechbvb.github.io/homescreen/';
-                        document.querySelector('.footer-item:nth-child(1)').classList.add('active');
-                        break;
-                    case 'YearPlan':
-                        iframe.src = 'https://kletechbvb.github.io/yp/';
-                        document.querySelector('.footer-item:nth-child(4)').classList.add('active');
-                        break;
-                    case 'Bookiz':
-                        iframe.src = 'https://kletechbvb.github.io/Bookiz/';
-                        document.querySelector('.footer-item:nth-child(5)').classList.add('active');
-                        header.style.display = 'none';
-                        break;
-                }
-
-                iframeHistory.push(iframe.src); // Push new URL to history
-            } catch (error) {
-                console.error('Error loading content:', error);
-                errorMessage.textContent = 'Error loading content. Please try again.';
-                errorMessage.style.display = 'block';
+            // Replace with the appropriate URLs for your pages
+            var pageUrl = '';
+            switch (page) {
+                case 'Home':
+                    pageUrl = 'https://kletechbvb.github.io/homescreen/';
+                    break;
+                case 'YearPlan':
+                    pageUrl = 'your-year-plan-url';
+                    break;
+                default:
+                    pageUrl = 'https://kletechbvb.github.io/homescreen/';
             }
+            document.getElementById('content-frame').src = pageUrl;
         }
 
         function openExternalSite(url) {
-            try {
-                window.open(url, '_blank'); // Open the URL in a new tab
-            } catch (error) {
-                console.error('Error opening external site:', error);
-                const errorMessage = document.getElementById('error-message');
-                errorMessage.textContent = 'Error opening external site. Please try again.';
-                errorMessage.style.display = 'block';
-            }
+            window.open(url, '_blank');
         }
 
         function loadTasks() {
-            const iframe = document.getElementById('content-frame');
-            const header = document.getElementById('app-header');
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.style.display = 'none'; // Hide any previous error message
-
-            try {
-                iframe.src = 'https://kletechbvb.github.io/todolist/';
-                header.style.display = 'flex';
-                document.querySelectorAll('.footer-item').forEach(item => item.classList.remove('active'));
-                iframeHistory.push(iframe.src); // Push new URL to history
-            } catch (error) {
-                console.error('Error loading tasks:', error);
-                errorMessage.textContent = 'Error loading tasks. Please try again.';
-                errorMessage.style.display = 'block';
-            }
+            // Implement your task loading logic here
         }
 
+        // Handle back button press
         window.addEventListener('popstate', function(event) {
             const iframe = document.getElementById('content-frame');
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.style.display = 'none'; // Hide any previous error message
+            if (iframe.contentWindow.history.length > 1) {
+                iframe.contentWindow.history.back();
+            } else {
+                // If no more history in iframe, handle back press normally
+                history.back();
+            }
+        });
 
-            try {
-                if (iframeHistory.length > 1) {
-                    iframeHistory.pop(); // Remove current URL
-                    const previousUrl = iframeHistory[iframeHistory.length - 1];
-                    iframe.src = previousUrl; // Load previous URL
+        // Initial push state to enable popstate event
+        window.history.pushState({}, '');
+
+        // Intercept back button press within the iframe
+        window.addEventListener('message', function(event) {
+            if (event.data === 'navigateBack') {
+                if (iframe.contentWindow.history.length > 1) {
+                    iframe.contentWindow.history.back();
+                } else {
+                    history.back();
                 }
-            } catch (error) {
-                console.error('Error handling back navigation:', error);
-                errorMessage.textContent = 'Error handling back navigation. Please try again.';
-                errorMessage.style.display = 'block';
             }
         });
 
-        window.onload = function() {
-            if (!(/Mobi/.test(navigator.userAgent))) {
-                window.location.href = "https://www.youtube.com";
-            }
-
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js')
-                .then((registration) => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                }).catch((error) => {
-                    console.log('Service Worker registration failed:', error);
-                });
-            }
-
-            // Set initial active footer item
-            document.querySelector('.footer-item:nth-child(1)').classList.add('active');
+        // Communication with the iframe
+        const iframe = document.getElementById('content-frame');
+        iframe.onload = function() {
+            iframe.contentWindow.postMessage('registerBackButtonHandler', '*');
         };
-    </script>
-    <script>
-        // Disable zooming using keyboard shortcuts and gestures
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && (event.key === '+' || event.key === '-' || event.key === '0')) {
-                event.preventDefault();
-            }
-        });
-
-        document.addEventListener('wheel', function(event) {
-            if (event.ctrlKey) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-    </script>
-    <script>
-        // Prevent copying
-        document.addEventListener('copy', function(event) {
-            event.preventDefault();
-        });
-
-        // Prevent context menu (right-click)
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-        });
-
-        // Prevent dragging of images
-        document.addEventListener('dragstart', function(event) {
-            if (event.target.tagName === 'IMG') {
-                event.preventDefault();
-            }
-        });
     </script>
 </body>
 </html>
+
