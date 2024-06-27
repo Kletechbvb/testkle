@@ -74,6 +74,18 @@
             background-color: #121212;
         }
 
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
         footer {
             display: flex;
             justify-content: space-around;
@@ -134,17 +146,20 @@
 <body>
     <div class="app-container">
         <header id="app-header">
-            <div class="header-left">
-                <div class="logo">Kle.tech</div>
-            </div>
-            <div class="header-right">
-                <div class="tasks-icon" onclick="loadTasks()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
-                    </svg>
-                </div>
-            </div>
-        </header>
+    <div class="header-left">
+        <div class="logo">
+            <img src="kletech192.jpg" alt="KLE.Tech Logo">
+            <span>KLE.Tech</span>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="tasks-icon" onclick="loadTasks()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 1 1 0 1.5H8v4.25a.75.75 0 1 1-1.5 0V8H2.75a.75.75 0 0 1 0-1.5H6V2.75A.75.75 0 0 1 6.75 2H8z"/>
+            </svg>
+        </div>
+    </div>
+</header>
 
         <main id="content-main">
             <iframe id="content-frame" src="https://kletechbvb.github.io/homescreen/"></iframe>
